@@ -1,0 +1,34 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: custom-storage-immediate
+  labels:
+    purpose: learning
+  annotations:
+    storageclass.kubernetes.io/is-default-class: 'false'
+provisioner: ebs.csi.aws.com
+parameters:
+  encrypted: 'true'
+  type: gp3
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+
+
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: custom-storage-wait
+  labels:
+    purpose: learning
+  annotations:
+    storageclass.kubernetes.io/is-default-class: 'false'
+provisioner: ebs.csi.aws.com
+parameters:
+  encrypted: 'false'
+  type: gp3
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer

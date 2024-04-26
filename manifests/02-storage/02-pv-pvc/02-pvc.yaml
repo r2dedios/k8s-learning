@@ -1,0 +1,17 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: dusan-pv-manual
+  namespace: storage-learning
+  labels:
+    app: example-pvc
+spec:
+  storageClassName: custom-storage-immediate
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+

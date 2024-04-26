@@ -1,0 +1,30 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dusan-pv-manual
+  annotations:
+    pv.kubernetes.io/provisioned-by: ebs.csi.aws.com
+    volume.kubernetes.io/provisioner-deletion-secret-name: ''
+    volume.kubernetes.io/provisioner-deletion-secret-namespace: ''
+spec:
+  capacity:
+    storage: 1Gi
+  csi:
+    driver: ebs.csi.aws.com
+    volumeHandle: vol-000c5bd1dd4e3b2a1
+    fsType: ext4
+    volumeAttributes:
+      storage.kubernetes.io/csiProvisionerIdentity: 1713884884775-5194-ebs.csi.aws.com
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: custom-storage-immediate
+  volumeMode: Filesystem
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.ebs.csi.aws.com/zone
+              operator: In
+              values:
+                - eu-central-1a

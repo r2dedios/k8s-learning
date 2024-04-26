@@ -1,0 +1,33 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-immediate
+  namespace: storage-learning
+  labels:
+    exercise: 01-pvc-manual
+spec:
+  storageClassName: custom-storage-immediate
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-wait
+  namespace: storage-learning
+  labels:
+    exercise: 01-pvc-manual
+spec:
+  storageClassName: custom-storage-wait
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem

@@ -1,0 +1,26 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: workload
+  namespace: storage-learning
+  labels:
+    exercise: 01-pvc-manual
+spec:
+  restartPolicy: Always
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: workload
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: pvc-wait
+          mountPath: /pvc
+      image: 'quay.io/avillega/hello-pod:1.2'
+  volumes:
+    - name: pvc-wait
+      persistentVolumeClaim:
+        claimName: pvc-wait

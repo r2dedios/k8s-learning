@@ -1,0 +1,35 @@
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: sts
+  namespace: storage-learning
+  labels:
+    exercise: statefulset
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-stateful
+  template:
+    metadata:
+      labels:
+        app: nginx-stateful
+    spec:
+      containers:
+      - name: nginx
+        image: 'quay.io/avillega/hello-pod:1.2'
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: temp
+            mountPath: /tmp
+  volumeClaimTemplates:
+    - metadata:
+        name: temp
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: custom-storage-wait
+        resources:
+          requests:
+            storage: 100Mi
